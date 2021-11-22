@@ -2,6 +2,7 @@ package main
 
 import (
 	"gogarden/bookmark"
+	"gogarden/database"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -21,6 +22,12 @@ func setupRoutes(app *fiber.App) {
 func main() {
 	// Create a new instance of Fiber
 	app := fiber.New()
+
+	dbErr := database.InitDatabase()
+
+	if dbErr != nil {
+		panic(dbErr)
+	}
 
 	setupRoutes(app)
 	app.Listen(":3000")
